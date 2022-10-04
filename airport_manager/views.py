@@ -177,6 +177,13 @@ class LoginWindow(tk.Tk):
         self.__password_entry = ttk.Entry(self, show = "*")
         self.__password_entry.grid(column = 1, row = 1, sticky = tk.E, padx = 10, pady = 5)
 
+        # database
+        self.__db_label = tk.Label(self, text="Database:")
+        self.__db_label.grid(column = 0, row = 2, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__db_entry = ttk.Entry(self)
+        self.__db_entry.grid(column = 1, row = 2, sticky = tk.E, padx = 10, pady = 10)
+
         # login button
         self.__login_button = ttk.Button(self, text="Login", command=self.__login)
         self.__login_button.grid(column = 1, row = 3, sticky = tk.S, padx = 5, pady = 5)
@@ -185,10 +192,11 @@ class LoginWindow(tk.Tk):
         try:
             u = self.__username_entry.get()
             p = self.__password_entry.get()
+            d = self.__db_entry.get()
             con = pymysql.connect(host="localhost",
                                   user=u,
                                   password=p,
-                                  database="mysql")
+                                  database=d)
         except OperationalError as e:
             messagebox.showerror("OperationalError", str(e))
         else:
