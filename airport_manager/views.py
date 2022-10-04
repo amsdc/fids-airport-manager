@@ -233,8 +233,95 @@ class LoginWindow(tk.Tk):
             HomeScreen(con)
             
             self.destroy()
-            
+'''
+`ifid`, `ofid`, `from`, `to`, `sta`, `eta`,"
+                    " `std`, `etd`, `checkinctr`, `status`, `beltstatus`, "
+                    "`gate`, `belt` FROM `flight`;")
+'''
+class EditFlightWindow(tk.Tk):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs) # initialize parent tk
+
+        self.title("Edit Flight")
+        
+        self.__ifid_label = tk.Label(self, text="Incoming Flight ID:")
+        self.__ifid_label.grid(column = 0, row = 0, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__ifid_entry = ttk.Entry(self)
+        self.__ifid_entry.grid(column = 1, row = 0, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__ofid_label = tk.Label(self, text="Outgoing Flight ID:")
+        self.__ofid_label.grid(column = 0, row = 1, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__ofid_entry = ttk.Entry(self)
+        self.__ofid_entry.grid(column = 1, row = 1, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__from_label = tk.Label(self, text="From:")
+        self.__from_label.grid(column = 0, row = 2, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__from_entry = ttk.Entry(self)
+        self.__from_entry.grid(column = 1, row = 2, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__to_label = tk.Label(self, text="To:")
+        self.__to_label.grid(column = 0, row = 3, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__to_entry = ttk.Entry(self)
+        self.__to_entry.grid(column = 1, row = 3, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__sta_label = tk.Label(self, text="STA:")
+        self.__sta_label.grid(column = 0, row = 4, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__sta_entry = ttk.Entry(self)
+        self.__sta_entry.grid(column = 1, row = 4, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__eta_label = tk.Label(self, text="ETA:")
+        self.__eta_label.grid(column = 0, row = 5, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__eta_entry = ttk.Entry(self)
+        self.__eta_entry.grid(column = 1, row = 5, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__std_label = tk.Label(self, text="STD:")
+        self.__std_label.grid(column = 0, row = 6, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__std_entry = ttk.Entry(self)
+        self.__std_entry.grid(column = 1, row = 6, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__etd_label = tk.Label(self, text="ETD:")
+        self.__etd_label.grid(column = 0, row = 7, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__etd_entry = ttk.Entry(self)
+        self.__etd_entry.grid(column = 1, row = 7, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__checkinctr_label = tk.Label(self, text="Check-in Counter:")
+        self.__checkinctr_label.grid(column = 0, row = 8, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__checkinctr_entry = ttk.Entry(self)
+        self.__checkinctr_entry.grid(column = 1, row = 8, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__status_label = tk.Label(self, text="Status:")
+        self.__status_label.grid(column = 0, row = 9, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__status_entry = ttk.Entry(self)
+        self.__status_entry.grid(column = 1, row = 9, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__beltstatus_label = tk.Label(self, text="Belt status:")
+        self.__beltstatus_label.grid(column = 0, row = 10, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__beltstatus_entry = ttk.Entry(self)
+        self.__beltstatus_entry.grid(column = 1, row = 10, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__gate_label = tk.Label(self, text="Gate:")
+        self.__gate_label.grid(column = 0, row = 11, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__gate_entry = ttk.Entry(self)
+        self.__gate_entry.grid(column = 1, row = 11, sticky = tk.E, padx = 10, pady = 10)
+
+        self.__belt_label = tk.Label(self, text="Belt:")
+        self.__belt_label.grid(column = 0, row = 12, sticky = tk.W, padx = 10, pady = 10)
+
+        self.__belt_entry = ttk.Entry(self)
+        self.__belt_entry.grid(column = 1, row = 12, sticky = tk.E, padx = 10, pady = 10)
 
 if __name__ == "__main__":
-    root = LoginWindow()
+    root = EditFlightWindow()
     root.mainloop()
