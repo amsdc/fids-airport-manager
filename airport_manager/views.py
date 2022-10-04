@@ -5,11 +5,13 @@ from tkinter import messagebox
 import pymysql
 from pymysql.err import OperationalError
 
-class DataFrame(tk.Frame):
+class DataFrame(tk.Frame,):
     def __init__(self, parent, con, *args, **kwargs):
         super().__init__(parent, *args, **kwargs) # initialize parent tk
 
         self.__con = con
+        self._parent = parent
+        
 
         # Table adding
         self.__heading_1 = tk.Label(self, text="Incoming Flight ID")
@@ -135,7 +137,7 @@ class HomeScreen(tk.Tk):
         self.__flight_menu.add_command(label="Edit", command=None)
         self.__flight_menu.add_command(label="Delete", command=None)
         self.__flight_menu.add_separator()
-        self.__flight_menu.add_command(label="Refresh Table", command=self.__refresh_table)
+        self.__flight_menu.add_command(label="Refresh Table", command=self._refresh_table)
         
         self.__menu.add_cascade(label="Flight", menu=self.__flight_menu)
         
@@ -160,7 +162,7 @@ class HomeScreen(tk.Tk):
     def __msgbox(self, plug):
         print("The user has", plug)
         
-    def __refresh_table(self):
+    def _refresh_table(self):
         self.__dframe.destroy()
         self.__dframe = DataFrame(self, self.__con)
         self.__dframe.grid(row=1, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
