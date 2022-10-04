@@ -99,7 +99,12 @@ class DataFrame(tk.Frame,):
                 EditFlightWindow(self._parent, self.__con, idd)
                     
             def __delete(idd=data[0]):
-                messagebox.showinfo("ID",idd)
+                cur = self.__con.cursor()
+                cur.execute("DELETE FROM `flight` WHERE id = %(id)s", {"id": idd})
+                #if messagebox.askyesno("Delete", "Delete?") == "yes":
+                self.__con.commit()
+                cur.close()
+                self._parent._refresh_table()
             
             b14 = ttk.Button(self, text="Edit", command=__edit)
             b14.grid(row=i,column=13, sticky=tk.N+tk.S+tk.E+tk.W)
@@ -154,7 +159,7 @@ class HomeScreen(tk.Tk):
         self.destroy()
     
     def __addflight(self):
-        AddFlightWindow(self.__con)
+        AddFlightWindow(self, self.__con)
 
     def __print(self):
         print("Hii")
@@ -386,15 +391,17 @@ class EditFlightWindow(FlightWindow):
             self.__con.commit()
             messagebox.showinfo("Success", "Success")
             self._parent._refresh_table()
+            self.destroy()
         finally:
             cur.close()
-            self.destroy()
+            
 
 class AddFlightWindow(FlightWindow):
-    def __init__(self, con, *args, **kwargs):
+    def __init__(self, parent, con, *args, **kwargs):
         FlightWindow.__init__(self, *args, **kwargs)
         
         self.__con = con
+        self._parent = parent
         
         self.title("Add Flight")
         
@@ -427,8 +434,11 @@ class AddFlightWindow(FlightWindow):
         else:
             self.__con.commit()
             messagebox.showinfo("Success", "Success")
+            self._parent._refresh_table()
+            self.destroy()
         finally:
             cur.close()
+            
 
 
 
