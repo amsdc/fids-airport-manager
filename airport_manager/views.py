@@ -264,7 +264,7 @@ class FlightWindow(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs) # initialize parent tk
 
-        self.title("Edit Flight")
+        # self.title("Edit Flight")
         
         self._ifid_label = tk.Label(self, text="Incoming Flight ID:")
         self._ifid_label.grid(column = 0, row = 0, sticky = tk.W, padx = 10, pady = 10)
@@ -351,6 +351,8 @@ class EditFlightWindow(FlightWindow):
         
         self.__con = con
         self.__id = id
+        
+        self.title("Edit Flight")
         
         self.__edit_button = ttk.Button(self, text="Edit", command=self.__edit)
         self.__edit_button.grid(row=13, column=0, columnspan=2)
