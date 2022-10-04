@@ -49,7 +49,7 @@ class DataFrame(tk.Frame,):
         for data in cur.fetchall():
             l1 = tk.Label(self, text=data[0], font=("Comic Sans", 15, "bold"), fg="#ffffff", bg="#000066")
             l1.grid(row=i, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
-            print(self._data.get(data[1], data[1]), data[1])
+            # print(self._data.get(data[1], data[1]), data[1])
             l2 = tk.Label(self, text=self._data.get(data[1], data[1]), font=("Comic Sans", 15, "bold"), fg="#ffffff", bg="#000066")
             l2.grid(row=i, column=1, sticky=tk.N+tk.S+tk.E+tk.W)
 
