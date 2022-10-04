@@ -135,7 +135,7 @@ class HomeScreen(tk.Tk):
         self.__flight_menu.add_command(label="Edit", command=None)
         self.__flight_menu.add_command(label="Delete", command=None)
         self.__flight_menu.add_separator()
-        self.__flight_menu.add_command(label="Execute SQL", command=None)
+        self.__flight_menu.add_command(label="Refresh Table", command=self.__refresh_table)
         
         self.__menu.add_cascade(label="Flight", menu=self.__flight_menu)
         
@@ -146,50 +146,6 @@ class HomeScreen(tk.Tk):
         
         
         tk.Grid.columnconfigure(self, 0, weight=1)
-        '''
-        # Table adding
-        self.__heading_1 = tk.Label(self, text="Host")
-        self.__heading_1.grid(row=1, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
-        self.__heading_1 = tk.Label(self, text="User")
-        self.__heading_1.grid(row=1, column=1, sticky=tk.N+tk.S+tk.E+tk.W)
-        self.__heading_1 = tk.Label(self, text="Password")
-        self.__heading_1.grid(row=1, column=2, sticky=tk.N+tk.S+tk.E+tk.W)
-        self.__heading_1 = tk.Label(self, text="Button")
-        self.__heading_1.grid(row=1, column=3, sticky=tk.N+tk.S+tk.E+tk.W)
-
-        cur = self.__con.cursor()
-        cur.execute("select host, user, password, plugin from user")
-
-        i = 2
-
-        self.__matrix = []
-
-        for data in cur.fetchall():
-            l1 = tk.Label(self, text=data[0])
-            l1.grid(row=i, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
-            l2 = tk.Label(self, text=data[1])
-            l2.grid(row=i, column=1, sticky=tk.N+tk.S+tk.E+tk.W)
-
-            l3 = tk.Label(self, text=data[2])
-            l3.grid(row=i, column=2, sticky=tk.N+tk.S+tk.E+tk.W)
-
-            
-            def callback(plugin=data[3]):
-                if plugin:
-                    messagebox.showinfo("Yes", "Plugin present "+data[3])
-                else:
-                    print("no")
-            
-            b4 = ttk.Button(self, text="Show plugin", command=callback)
-            b4.grid(row=i,column=3, sticky=tk.N+tk.S+tk.E+tk.W)
-
-            i += 1
-
-        
-
-        
-        cur.close()
-        '''
 
     def __logout(self):
         self.__con.close()
@@ -203,6 +159,11 @@ class HomeScreen(tk.Tk):
 
     def __msgbox(self, plug):
         print("The user has", plug)
+        
+    def __refresh_table(self):
+        self.__dframe.destroy()
+        self.__dframe = DataFrame(self, self.__con)
+        self.__dframe.grid(row=1, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
 
 class LoginWindow(tk.Tk):
     def __init__(self, *args, **kwargs):
