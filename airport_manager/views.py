@@ -43,6 +43,7 @@ class DataFrame(tk.Frame):
         self.__heading_15 = tk.Label(self, text="Delete")
         self.__heading_15.grid(row=0, column=14, sticky=tk.N+tk.S+tk.E+tk.W)
 
+
         cur = self.__con.cursor()
         cur.execute("SELECT `id`, `ifid`, `ofid`, `from`, `to`, `sta`, `eta`,"
                     " `std`, `etd`, `checkinctr`, `status`, `beltstatus`, "
@@ -53,13 +54,40 @@ class DataFrame(tk.Frame):
         self.__matrix = []
 
         for data in cur.fetchall():
-            l1 = tk.Label(self, text=data[0])
+            l1 = tk.Label(self, text=data[1])
             l1.grid(row=i, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
-            l2 = tk.Label(self, text=data[1])
+            l2 = tk.Label(self, text=data[2])
             l2.grid(row=i, column=1, sticky=tk.N+tk.S+tk.E+tk.W)
 
-            l3 = tk.Label(self, text=data[2])
+            l3 = tk.Label(self, text=data[3])
             l3.grid(row=i, column=2, sticky=tk.N+tk.S+tk.E+tk.W)
+
+            l4 = tk.Label(self, text=data[4])
+            l4.grid(row=i, column=3, sticky=tk.N+tk.S+tk.E+tk.W)
+            l5 = tk.Label(self, text=data[5])
+            l5.grid(row=i, column=4, sticky=tk.N+tk.S+tk.E+tk.W)
+
+            l6 = tk.Label(self, text=data[6])
+            l6.grid(row=i, column=5, sticky=tk.N+tk.S+tk.E+tk.W)
+            l7 = tk.Label(self, text=data[7])
+            l7.grid(row=i, column=6, sticky=tk.N+tk.S+tk.E+tk.W)
+            l8 = tk.Label(self, text=data[8])
+            l8.grid(row=i, column=7, sticky=tk.N+tk.S+tk.E+tk.W)
+
+            l9 = tk.Label(self, text=data[9])
+            l9.grid(row=i, column=8, sticky=tk.N+tk.S+tk.E+tk.W)
+            l10 = tk.Label(self, text=data[10])
+            l10.grid(row=i, column=9, sticky=tk.N+tk.S+tk.E+tk.W)
+            l11 = tk.Label(self, text=data[11])
+            l11.grid(row=i, column=10, sticky=tk.N+tk.S+tk.E+tk.W)
+
+            l12 = tk.Label(self, text=data[12])
+            l12.grid(row=i, column=11, sticky=tk.N+tk.S+tk.E+tk.W)
+            l13=tk.Label(self,text=data[13])
+            l13.grid(row=i, column=12,sticky=tk.N+tk.S+tk.E+tk.W )
+
+
+
 
             
             def callback(plugin=data[3]):
@@ -68,8 +96,10 @@ class DataFrame(tk.Frame):
                 else:
                     print("no")
             
-            b4 = ttk.Button(self, text="Show plugin", command=callback)
-            b4.grid(row=i,column=3, sticky=tk.N+tk.S+tk.E+tk.W)
+            b14 = ttk.Button(self, text="Edit", command=callback)
+            b14.grid(row=i,column=13, sticky=tk.N+tk.S+tk.E+tk.W)
+            b15 = ttk.Button(self, text="Delete", command=callback)
+            b15.grid(row=i,column=14, sticky=tk.N+tk.S+tk.E+tk.W)
 
             i += 1
 
