@@ -96,10 +96,10 @@ class DataFrame(tk.Frame,):
 
             
             def __edit(idd=data[0]):
-                    EditFlightWindow(self.__con, idd)
+                EditFlightWindow(self._parent, self.__con, idd)
                     
             def __delete(idd=data[0]):
-                    messagebox.showinfo("ID",idd)
+                messagebox.showinfo("ID",idd)
             
             b14 = ttk.Button(self, text="Edit", command=__edit)
             b14.grid(row=i,column=13, sticky=tk.N+tk.S+tk.E+tk.W)
@@ -312,11 +312,12 @@ class FlightWindow(tk.Tk):
 
 
 class EditFlightWindow(FlightWindow):
-    def __init__(self, con, id, *args, **kwargs):
+    def __init__(self, parent, con, id, *args, **kwargs):
         FlightWindow.__init__(self, *args, **kwargs)
         
         self.__con = con
         self.__id = id
+        self._parent = parent
         
         self.title("Edit Flight")
         
@@ -384,9 +385,10 @@ class EditFlightWindow(FlightWindow):
         else:
             self.__con.commit()
             messagebox.showinfo("Success", "Success")
+            self._parent._refresh_table()
         finally:
             cur.close()
-    
+            self.destroy()
 
 class AddFlightWindow(FlightWindow):
     def __init__(self, con, *args, **kwargs):
