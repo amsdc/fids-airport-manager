@@ -364,8 +364,26 @@ class EditFlightWindow(FlightWindow):
                     "`gate`, `belt` FROM `flight` WHERE id = %(id)s LIMIT 1;",
                     {"id": self.__id})
         data = cur.fetchone()
-        self._ifid_entry.insert(0, data[0])
-        self._ofid_entry.insert(0, data[1])
+        if data[0]: 
+            self._ifid_entry.insert(0, data[0])
+        if data[1]:
+            self._ofid_entry.insert(0, data[1])
+        if data[2]:
+            self._from_entry.insert(0, data[2])
+        if data[3]:
+            self._to_entry.insert(0, data[3])
+        self._sta_entry.insert(0, data[4])
+        self._eta_entry.insert(0, data[5])
+        self._std_entry.insert(0, data[6])
+        self._etd_entry.insert(0, data[7])
+        if data[8]:
+            self._checkinctr_entry.insert(0, data[8])
+        self._status_entry.insert(0, data[9])
+        self._beltstatus_entry.insert(0, data[10])
+        if data[11]:
+            self._gate_entry.insert(0, data[11])
+        if data[12]:
+            self._belt_entry.insert(0, data[12])
         ### do ###
         
         cur.close()
