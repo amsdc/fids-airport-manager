@@ -90,15 +90,15 @@ class DataFrame(tk.Frame):
 
 
             
-            def callback(plugin=data[3]):
-                if plugin:
-                    messagebox.showinfo("Yes", "Plugin present "+data[3])
-                else:
-                    print("no")
+            def __edit(idd=data[0]):
+                    messagebox.showinfo("ID",idd)
+                    
+            def __delete(idd=data[0]):
+                    messagebox.showinfo("ID",idd)
             
-            b14 = ttk.Button(self, text="Edit", command=callback)
+            b14 = ttk.Button(self, text="Edit", command=__edit)
             b14.grid(row=i,column=13, sticky=tk.N+tk.S+tk.E+tk.W)
-            b15 = ttk.Button(self, text="Delete", command=callback)
+            b15 = ttk.Button(self, text="Delete", command=__delete)
             b15.grid(row=i,column=14, sticky=tk.N+tk.S+tk.E+tk.W)
 
             i += 1
