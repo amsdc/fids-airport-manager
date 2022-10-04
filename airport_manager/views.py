@@ -12,9 +12,9 @@ class DataFrame(tk.Frame):
         self.__con = con
 
         # Table adding
-        self.__heading_1 = tk.Label(self, text="Host")
+        self.__heading_1 = tk.Label(self, text="Incoming Flight ID")
         self.__heading_1.grid(row=0, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
-        self.__heading_1 = tk.Label(self, text="User")
+        self.__heading_1 = tk.Label(self, text="Outgoing Flight ID")
         self.__heading_1.grid(row=0, column=1, sticky=tk.N+tk.S+tk.E+tk.W)
         self.__heading_1 = tk.Label(self, text="Password")
         self.__heading_1.grid(row=0, column=2, sticky=tk.N+tk.S+tk.E+tk.W)
@@ -22,7 +22,9 @@ class DataFrame(tk.Frame):
         self.__heading_1.grid(row=0, column=3, sticky=tk.N+tk.S+tk.E+tk.W)
 
         cur = self.__con.cursor()
-        cur.execute("select host, user, password, plugin from user")
+        cur.execute("SELECT `id`, `ifid`, `ofid`, `from`, `to`, `sta`, `eta`,"
+                    " `std`, `etd`, `checkinctr`, `status`, `beltstatus`, "
+                    "`gate`, `belt` FROM `flight`;")
 
         i = 1
 
