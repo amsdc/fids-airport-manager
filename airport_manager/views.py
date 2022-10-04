@@ -131,7 +131,7 @@ class HomeScreen(tk.Tk):
         self.__menu.add_cascade(label="User", menu=self.__user_menu)
         
         self.__flight_menu = tk.Menu(self.__menu, tearoff=0)
-        self.__flight_menu.add_command(label="Add", command=None)
+        self.__flight_menu.add_command(label="Add", command=self.__addflight)
         self.__flight_menu.add_command(label="Edit", command=None)
         self.__flight_menu.add_command(label="Delete", command=None)
         self.__flight_menu.add_separator()
@@ -194,6 +194,9 @@ class HomeScreen(tk.Tk):
     def __logout(self):
         self.__con.close()
         self.destroy()
+    
+    def __addflight(self):
+        AddFlightWindow(self.__con)
 
     def __print(self):
         print("Hii")
@@ -421,7 +424,50 @@ class EditFlightWindow(FlightWindow):
         finally:
             cur.close()
     
-    
+
+class AddFlightWindow(FlightWindow):
+    def __init__(self, con, *args, **kwargs):
+        FlightWindow.__init__(self, *args, **kwargs)
+        
+        self.__con = con
+        
+        self.title("Add Flight")
+        
+        self.__add_button = ttk.Button(self, text="Add", command=self.__add)
+        self.__add_button.grid(row=13, column=0, columnspan=2)
+
+    def __add(self):
+        cur = self.__con.cursor()
+        try:
+            cur.execute("INSERT INTO FLIGHT (ifid, ofid, `from`, `to`, sta, eta,"
+                        " std, etd, checkinctr , status, beltstatus, gate, belt) "
+                        "values (%(ifid)s, %(ofid)s, %(from)s, %(to)s, %(sta)s, "
+                        "%(eta)s,%(std)s,%(etd)s,%(checkinctr)s,%(status)s, "
+                        "%(beltstatus)s,%(gate)s,%(belt)s)",
+                        {"ifid": self._ifid_entry.get(), 
+                        "ofid": self._ofid_entry.get(), 
+                        "from": self._from_entry.get(), 
+                        "to": self._to_entry.get(), 
+                        "sta": self._sta_entry.get(), 
+                        "eta": self._eta_entry.get(), 
+                        "std": self._std_entry.get(), 
+                        "etd": self._etd_entry.get(), 
+                        "checkinctr": self._checkinctr_entry.get(), 
+                        "status": self._status_entry.get(), 
+                        "beltstatus": self._beltstatus_entry.get(), 
+                        "gate": self._gate_entry.get(), 
+                        "belt": self._belt_entry.get()})
+        except OperationalError as e:
+            messagebox.showerror(str(type(e)), str(e))
+        else:
+            self.__con.commit()
+            messagebox.showinfo("Success", "Success")
+        finally:
+            cur.close()
+
+
+
+
 '''
 "INSERT INTO FLIGHT (ifid, ofid, `from`, `to`, sta, eta,"
 " std, etd, checkinctr , status, beltstatus, gate, belt) "
