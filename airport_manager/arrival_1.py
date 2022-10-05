@@ -73,20 +73,20 @@ class DataFrame(tk.Frame,):
                     style = self._style["body2"]
 
                 l1 = tk.Label(self, text=data[0].strftime("%H:%M"), **style)
-                l1.grid(row=i, column=2, sticky=tk.N+tk.S+tk.E+tk.W)
+                l1.grid(row=i, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
 
                 l2 = tk.Label(self, text=data[1], **style)
-                l2.grid(row=i, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
+                l2.grid(row=i, column=1, sticky=tk.N+tk.S+tk.E+tk.W)
                 # print(self._data.get(data[1], data[1]), data[1])
 
                 l3 = tk.Label(self, text=self._data.get(data[2], data[2]), **style)
-                l3.grid(row=i, column=1, sticky=tk.N+tk.S+tk.E+tk.W)
+                l3.grid(row=i, column=2, sticky=tk.N+tk.S+tk.E+tk.W)
                 
                 l4 = tk.Label(self, text=data[3], **style)
-                l4.grid(row=i, column=4, sticky=tk.N+tk.S+tk.E+tk.W)
+                l4.grid(row=i, column=3, sticky=tk.N+tk.S+tk.E+tk.W)
 
                 l5 = tk.Label(self, text=data[4].strftime("%H:%M"), **style)
-                l5.grid(row=i, column=3, sticky=tk.N+tk.S+tk.E+tk.W)
+                l5.grid(row=i, column=4, sticky=tk.N+tk.S+tk.E+tk.W)
 
                 i += 1
         finally:
