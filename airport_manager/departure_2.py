@@ -11,8 +11,8 @@ STYLE = dict(
     title=dict(font=("Calibri", 60, "bold"), fg="#ffffff", bg="#666699"),
     time=dict(font=("Consolas", 40, "bold"), fg="#ffffff", bg="#666699"),
     header=dict(font=("Calibri", 40, "bold"), fg="#ffffff", bg="#666699"),
-    body=dict(font=("Calibri", 35, "bold"), fg="#ffffff", bg="#000066"),
-    body2=dict(font=("Calibri", 35, "bold"), fg="#ffffff", bg="#0066ff"),
+    body2=dict(font=("Calibri", 35, "bold"), fg="#ffffff", bg="#000066"),
+    body=dict(font=("Calibri", 35, "bold"), fg="#ffffff", bg="#0066ff"),
     err=dict(font=("Calibri", 60, "bold"), fg="#ff0000", bg="#000066")
 )
 
@@ -35,7 +35,7 @@ class DataFrame(tk.Frame,):
             cur = self.__con.cursor()
             cur.execute("SELECT `etd`, `ofid`, `to`, `gate`, `status` "
                         "FROM `flight` WHERE "
-                        "`etd`BETWEEN NOW() AND NOW() + INTERVAL 1 DAY"
+                        "`etd` BETWEEN NOW() AND NOW() + INTERVAL 1 DAY"
                         " ORDER BY `etd` ASC;")
         except OperationalError as e:
             lbl = tk.Label(self, text=("Failed to update data\n"
@@ -75,19 +75,19 @@ class DataFrame(tk.Frame,):
                 else:
                     style = self._style["body2"]
                 
-                l1 = tk.Label(self, text=data[0].strftime("%H:%M"), **self._style["body"])
+                l1 = tk.Label(self, text=data[0].strftime("%H:%M"), **style)
                 l1.grid(row=i, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
 
-                l2 = tk.Label(self, text=data[1], **self._style["body"])
+                l2 = tk.Label(self, text=data[1], **style)
                 l2.grid(row=i, column=1, sticky=tk.N+tk.S+tk.E+tk.W)
 
-                l3 = tk.Label(self, text=self._data.get(data[2], data[2]), **self._style["body"])
+                l3 = tk.Label(self, text=self._data.get(data[2], data[2]), **style)
                 l3.grid(row=i, column=2, sticky=tk.N+tk.S+tk.E+tk.W)
 
-                l4 = tk.Label(self, text=data[3], **self._style["body"])
+                l4 = tk.Label(self, text=data[3], **style)
                 l4.grid(row=i, column=3, sticky=tk.N+tk.S+tk.E+tk.W)
 
-                l5 = tk.Label(self, text=data[4], **self._style["body"])
+                l5 = tk.Label(self, text=data[4], **style)
                 l5.grid(row=i, column=4, sticky=tk.N+tk.S+tk.E+tk.W)
 
                 i += 1
@@ -102,8 +102,8 @@ class HomeScreen(tk.Tk):
         
         self.configure(bg="#000066")
 
-        self.title("User home")
-        self.attributes("-fullscreen", False) 
+        self.title("Departures")
+        self.attributes("-fullscreen", True) 
         
         self.__con = con
 
