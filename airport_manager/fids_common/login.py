@@ -14,17 +14,19 @@ USERSTORE_SERVICE_NAME = "AKNP_FIDS_Prefs"
 
 def login(parent=None):
     if settings.get("auth", "autologin"):
-        pwd = keyring.get_password(PWDSTORE_SERVICE_NAME, settings.get("auth", "username"))
+        pwd = keyring.get_password(PWDSTORE_SERVICE_NAME, settings.get("auth", "user"))
         con = pymysql.connect(host=settings.get("auth", "host"),
                               user=settings.get("auth", "user"),
                               password= pwd,
                               database=settings.get("auth", "database"))
     else:
         frm = LoginWindow()
+        '''
         if parent:
             parent.wait_window(frm)
         else:
-            frm.mainloop()
+        '''
+        frm.mainloop()
         
         l = frm.creds
         con = pymysql.connect(host=l[0],
@@ -46,6 +48,7 @@ class LoginWindow(tk.Tk):
         super().__init__(*args, **kwargs) # initialize parent tk
 
         self.title("User Sign In")
+        self.attributes("-topmost", True)
         
         # host
         self.__host_label = tk.Label(self, text="Host:")
@@ -96,3 +99,4 @@ class LoginWindow(tk.Tk):
             con.close()
             self.creds = (h, u, p, d)
             self.destroy()
+            self.quit()

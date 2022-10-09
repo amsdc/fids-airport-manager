@@ -101,15 +101,16 @@ class DataFrame(tk.Frame,):
 
 
 class HomeScreen(tk.Tk):
-    def __init__(self, con, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs) # initialize parent tk
         
         self.configure(bg="#000066")
 
-        self.title("User home")
+        self.title("Departure Screen")
         self.attributes("-fullscreen", True) 
         
-        self.__con = con
+        self.__con = login.login(self)
+        print("OK")
 
         self.__logout_btn = tk.Label(self, text="DEPARTURES", **STYLE["title"])
         self.__logout_btn.grid(row=0, column=0, sticky=tk.E+tk.W)
@@ -198,5 +199,5 @@ class LoginWindow(tk.Tk):
             self.destroy()
 
 if __name__ == "__main__":
-    root = LoginWindow()
+    root = HomeScreen()
     root.mainloop()
