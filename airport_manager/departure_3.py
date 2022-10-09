@@ -7,6 +7,8 @@ import datetime
 import pymysql
 from pymysql.err import OperationalError, Error as PYMErr, InterfaceError
 
+from fids_common import login
+
 STYLE = dict(
     title=dict(font=("Calibri", 40, "bold"), fg="#ffffff", bg="#666699"),
     time=dict(font=("Consolas", 35, "bold"), fg="#ffffff", bg="#666699"),
