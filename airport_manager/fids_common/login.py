@@ -1,13 +1,45 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-import configparser
+
 
 import pymysql
 import keyring
 
+import fids_common.settings as settings
+
 PWDSTORE_SERVICE_NAME = "AKNP_FIDS_MySQL_DBUser"
 USERSTORE_SERVICE_NAME = "AKNP_FIDS_Prefs"
+
+
+def login(parent=None):
+    if settings.get("auth", "autologin"):
+        pwd = keyring.get_password(PWDSTORE_SERVICE_NAME, settings.get("auth", "username"))
+        con = pymysql.connect(host=settings.get("auth", "host"),
+                              user=settings.get("auth", "user"),
+                              password= pwd,
+                              database=settings.get("auth", "database"))
+    else:
+        frm = LoginWindow()
+        if parent:
+            parent.wait_window(frm)
+        else:
+            frm.mainloop()
+        
+        l = frm.creds
+        con = pymysql.connect(host=l[0],
+                              user=l[1],
+                              password=l[2],
+                              database=l[3])
+        settings.set("auth", "host", l[0])
+        settings.set("auth", "user", l[1])
+        keyring.set_password(PWDSTORE_SERVICE_NAME, l[1], l[2])
+        settings.set("auth", "database", l[3])
+        settings.set("auth", "autologin", True)
+    con.autocommit(True)
+    return con
+
+
 
 class LoginWindow(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -58,9 +90,9 @@ class LoginWindow(tk.Tk):
                                   password=p,
                                   database=d)
             con.autocommit(True)
-        except OperationalError as e:
+        except pymysql.err.OperationalError as e:
             messagebox.showerror(str(type(e)), str(e))
         else:
-            HomeScreen(con)
-            
+            con.close()
+            self.creds = (h, u, p, d)
             self.destroy()
