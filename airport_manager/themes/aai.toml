@@ -1,0 +1,92 @@
+[title]
+font.family = "Times New Roman"
+font.size = 60
+font.weight = "bold"
+font.slant = "roman"
+font.underline = 0
+font.overstrike = 0
+foreground = "#ffffff"
+background = "#666699"
+borderwidth = 0
+anchor = "w"
+padding.x = 20
+padding.y = 0
+grid.padding.x = 0
+grid.padding.y = 0
+grid.sticky = "ew"
+
+[time]
+font.family = "Roboto"
+font.size = 40
+font.weight = "normal"
+font.slant = "italic"
+font.underline = 0
+font.overstrike = 0
+foreground = "#ffffff"
+background = "#666699"
+borderwidth = 0
+anchor = "e"
+padding.x = 20
+grid.padding.x = 0
+grid.padding.y = 0
+grid.sticky = "nsew"
+
+[header]
+font.family = "Calibri"
+font.size = 40
+font.weight = "normal"
+font.slant = "roman"
+font.underline = 0
+font.overstrike = 0
+foreground = "#ffffff"
+background = "#666699"
+borderwidth = 0
+anchor = "center"
+grid.padding.x = 0
+grid.padding.y = 0
+grid.sticky = "nsew"
+
+[body]
+font.family = "Calibri"
+font.size = 60
+font.weight = "bold"
+font.slant = "roman"
+font.underline = 0
+font.overstrike = 0
+foreground = "#ffffff"
+background = "#000066"
+borderwidth = 0
+anchor = "e"
+grid.padding.x = 0
+grid.padding.y = 0
+grid.sticky = "nsew"
+
+[body2]
+font.family = "Calibri"
+font.size = 60
+font.weight = "bold"
+font.slant = "roman"
+font.underline = 0
+font.overstrike = 0
+foreground = "#ffffff"
+background = "#666699"
+borderwidth = 0
+anchor = "e"
+grid.padding.x = 0
+grid.padding.y = 0
+grid.sticky = "nsew"
+
+[error]
+font.family = "Calibri"
+font.size = 60
+font.weight = "bold"
+font.slant = "roman"
+font.underline = 0
+font.overstrike = 0
+foreground = "#ffffff"
+background = "#666699"
+borderwidth = 0
+anchor = "e"
+grid.padding.x = 0
+grid.padding.y = 0
+grid.sticky = "nsew"

@@ -9,7 +9,10 @@ DEFAULT_SETTINGS = {
         "user": "root",
         "database": "fids",
     },
-    "client": {"poll_update": 5000},
+    "client": {
+        "poll_update": 5000,
+        "theme": "default.toml"
+    },
 }
 
 settings = configparser.ConfigParser()
