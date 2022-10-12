@@ -13,6 +13,7 @@ from fids_common import themes
 from fids_common import settings
 from fids_common import reloader
 from fids_common import quickdialog
+from fids_common import airlinepics
 
 
 class DataFrame(
@@ -70,29 +71,37 @@ class DataFrame(
             for i in range(1, 7):
                 tk.Grid.columnconfigure(self, i, weight=1)
 
-            # self.__matrix = []
+            self._airimg = []
 
             for data in cur.fetchall():
+                iata = data[0][:2]
+                fnum = data[0][2:]
+                self._airimg.append(airlinepics.get_airline_logo(iata, themes.current_theme["icons"]["airline_logo"]["size"]))
                 if i % 2 == 1:
                     style = themes.get_style("body")
                 else:
                     style = themes.get_style("body2")
-                l1 = tk.Label(self, text=data[0], **style)
-                l1.grid(row=i, column=0, sticky=tk.N + tk.S + tk.E + tk.W)
+                    
+                
+                l0 = tk.Label(self, image=self._airimg[-1], **themes.get_label_attr(style))
+                l0.grid(row=i, column=0, **themes.get_grid_attr(style))
+                    
+                l1 = tk.Label(self, text=" ".join((iata, fnum)), **themes.get_label_attr(style))
+                l1.grid(row=i, column=1, **themes.get_grid_attr(style))
                 # print(self._data.get(data[1], data[1]), data[1])
                 l2 = tk.Label(self, text=self._data.get(data[1], data[1]), **themes.get_label_attr(style))
-                l2.grid(row=i, column=1, **themes.get_grid_attr(style))
+                l2.grid(row=i, column=2, **themes.get_grid_attr(style))
 
                 l3 = tk.Label(self, text=data[2].strftime("%H:%M"), **themes.get_label_attr(style))
-                l3.grid(row=i, column=2, **themes.get_grid_attr(style))
+                l3.grid(row=i, column=3, **themes.get_grid_attr(style))
 
                 l4 = tk.Label(self, text=data[3].strftime("%H:%M"), **themes.get_label_attr(style))
-                l4.grid(row=i, column=3, **themes.get_grid_attr(style))
+                l4.grid(row=i, column=4, **themes.get_grid_attr(style))
                 l5 = tk.Label(self, text=data[4], **themes.get_label_attr(style))
-                l5.grid(row=i, column=4, **themes.get_grid_attr(style))
+                l5.grid(row=i, column=5, **themes.get_grid_attr(style))
 
                 l6 = tk.Label(self, text=data[5].title(), **themes.get_label_attr(style))
-                l6.grid(row=i, column=5, **themes.get_grid_attr(style))
+                l6.grid(row=i, column=6, **themes.get_grid_attr(style))
 
                 i += 1
         finally:
