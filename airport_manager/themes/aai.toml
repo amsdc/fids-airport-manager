@@ -58,7 +58,7 @@ background = "#000000"
 borderwidth = 0
 anchor = "center"
 grid.padding.x = 0
-grid.padding.y = 0
+grid.padding.y = 3
 grid.sticky = "nsew"
 
 [body2]
@@ -73,20 +73,20 @@ background = "#000000"
 borderwidth = 0
 anchor = "center"
 grid.padding.x = 0
-grid.padding.y = 0
+grid.padding.y = 3
 grid.sticky = "nsew"
 
 [error]
-font.family = "Calibri"
-font.size = 60
+font.family = "Lato"
+font.size = 80
 font.weight = "bold"
 font.slant = "roman"
 font.underline = 0
 font.overstrike = 0
-foreground = "#ffffff"
-background = "#666699"
+foreground = "#ff0000"
+background = "#ffff00"
 borderwidth = 0
-anchor = "e"
+anchor = "center"
 grid.padding.x = 0
 grid.padding.y = 0
 grid.sticky = "nsew"
