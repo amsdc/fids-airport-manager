@@ -52,4 +52,4 @@ def get_style(name):
     return current_theme.get(name, {})
                 
 
-load_theme()
+# load_theme()

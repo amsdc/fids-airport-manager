@@ -32,11 +32,10 @@ class DataFrame(
         try:
             cur = self.__con.cursor()
             cur.execute(
-                "SELECT `ofid`, `to`, "
-                " `std`, `etd`, `checkinctr`, `status` "
+                "SELECT `sta`, `ifid`,`from`, `belt`, `eta`"
                 "FROM `flight` WHERE "
-                "`etd` BETWEEN NOW() AND NOW() + INTERVAL 1 DAY"
-                " ORDER BY `etd` ASC;"
+                "`eta` BETWEEN NOW() AND NOW() + INTERVAL 1 DAY"
+                " ORDER BY `eta` ASC;"
             )
         except OperationalError as e:
             lbl = tk.Label(
@@ -52,30 +51,27 @@ class DataFrame(
             # Table adding
             self.__heading_1 = tk.Label(self, text="Airline", **themes.get_label_attr(themes.get_style("header")))
             self.__heading_1.grid(row=0, column=0, **themes.get_grid_attr(themes.get_style("header")))
-            self.__heading_2 = tk.Label(self, text="Flight No", **themes.get_label_attr(themes.get_style("header")))
+            self.__heading_2 = tk.Label(self, text="STA", **themes.get_label_attr(themes.get_style("header")))
             self.__heading_2.grid(row=0, column=1, **themes.get_grid_attr(themes.get_style("header")))
-            self.__heading_4 = tk.Label(self, text="To", **themes.get_label_attr(themes.get_style("header")))
-            self.__heading_4.grid(row=0, column=2, **themes.get_grid_attr(themes.get_style("header")))
-            self.__heading_7 = tk.Label(self, text="STD", **themes.get_label_attr(themes.get_style("header")))
-            self.__heading_7.grid(row=0, column=3, **themes.get_grid_attr(themes.get_style("header")))
-            self.__heading_8 = tk.Label(self, text="ETD", **themes.get_label_attr(themes.get_style("header")))
-            self.__heading_8.grid(row=0, column=4, **themes.get_grid_attr(themes.get_style("header")))
-            self.__heading_9 = tk.Label(
-                self, text="Check-in counter", **themes.get_label_attr(themes.get_style("header"))
-            )
-            self.__heading_9.grid(row=0, column=5, **themes.get_grid_attr(themes.get_style("header")))
-            self.__heading_10 = tk.Label(self, text="Status", **themes.get_label_attr(themes.get_style("header")))
-            self.__heading_10.grid(row=0, column=6, **themes.get_grid_attr(themes.get_style("header")))
+            self.__heading_3 = tk.Label(self, text="Flight No.", **themes.get_label_attr(themes.get_style("header")))
+            self.__heading_3.grid(row=0, column=2, **themes.get_grid_attr(themes.get_style("header")))
+            self.__heading_4 = tk.Label(self, text="From", **themes.get_label_attr(themes.get_style("header")))
+            self.__heading_4.grid(row=0, column=3, **themes.get_grid_attr(themes.get_style("header")))
+            self.__heading_5 = tk.Label(self, text="Belt", **themes.get_label_attr(themes.get_style("header")))
+            self.__heading_5.grid(row=0, column=4, **themes.get_grid_attr(themes.get_style("header")))
+            self.__heading_6 = tk.Label(self, text="ETA", **themes.get_label_attr(themes.get_style("header")))
+            self.__heading_6.grid(row=0, column=5, **themes.get_grid_attr(themes.get_style("header")))
+
             i = 1
 
-            for i in range(1, 7):
+            for i in range(1, 5):
                 tk.Grid.columnconfigure(self, i, weight=1)
 
             self._airimg = []
 
             for data in cur.fetchall():
-                iata = data[0][:2]
-                fnum = data[0][2:]
+                iata = data[1][:2]
+                fnum = data[1][2:]
                 self._airimg.append(airlinepics.get_airline_logo(iata, themes.current_theme["icons"]["airline_logo"]["size"]))
                 if i % 2 == 1:
                     style = themes.get_style("body")
@@ -85,23 +81,21 @@ class DataFrame(
                 
                 l0 = tk.Label(self, image=self._airimg[-1], **themes.get_label_attr(style))
                 l0.grid(row=i, column=0, **themes.get_grid_attr(style))
-                    
-                l1 = tk.Label(self, text=" ".join((iata, fnum)), **themes.get_label_attr(style))
+
+                l1 = tk.Label(self, text=data[0].strftime("%H:%M"), **themes.get_label_attr(style))
                 l1.grid(row=i, column=1, **themes.get_grid_attr(style))
-                # print(self._data.get(data[1], data[1]), data[1])
-                l2 = tk.Label(self, text=displaystr.get_city(data[1]), **themes.get_label_attr(style))
+
+                l2 = tk.Label(self, text=" ".join((iata, fnum)), **themes.get_label_attr(style))
                 l2.grid(row=i, column=2, **themes.get_grid_attr(style))
 
-                l3 = tk.Label(self, text=data[2].strftime("%H:%M"), **themes.get_label_attr(style))
+                l3 = tk.Label(self, text=displaystr.get_city(data[2]), **themes.get_label_attr(style))
                 l3.grid(row=i, column=3, **themes.get_grid_attr(style))
 
-                l4 = tk.Label(self, text=data[3].strftime("%H:%M"), **themes.get_label_attr(style))
+                l4 = tk.Label(self, text=data[3], **themes.get_label_attr(style))
                 l4.grid(row=i, column=4, **themes.get_grid_attr(style))
-                l5 = tk.Label(self, text=data[4], **themes.get_label_attr(style))
-                l5.grid(row=i, column=5, **themes.get_grid_attr(style))
 
-                l6 = tk.Label(self, text=data[5].title(), **themes.get_label_attr(style))
-                l6.grid(row=i, column=6, **themes.get_grid_attr(style))
+                l5 = tk.Label(self, text=data[4].strftime("%H:%M"), **themes.get_label_attr(style))
+                l5.grid(row=i, column=5, **themes.get_grid_attr(style))
 
                 i += 1
         finally:
@@ -115,7 +109,7 @@ class HomeScreen(tk.Tk):
         
         self.configure(bg="#000066")
 
-        self.title("Departure Screen")
+        self.title("Arrival Screen")
         self.attributes("-fullscreen", True)
         
         try:
@@ -125,11 +119,12 @@ class HomeScreen(tk.Tk):
             quickdialog.show_conrestore()
             reloader.restart()
 
-        self.__logout_btn = tk.Label(self, text="DEPARTURES", **themes.get_label_attr(themes.get_style("title")))
+        self.__logout_btn = tk.Label(self, text="ARRIVALS", **themes.get_label_attr(themes.get_style("title")))
         self.__logout_btn.grid(row=0, column=1, **themes.get_grid_attr(themes.get_style("title")))
 
         self._timelbl = tk.Label(self, text="...", **themes.get_label_attr(themes.get_style("time")))
         self._timelbl.grid(row=0, column=2, **themes.get_grid_attr(themes.get_style("time")))
+
 
         self.__dframe = tk.Label(self, text="...")
         self.__dframe.grid(
@@ -162,6 +157,6 @@ class HomeScreen(tk.Tk):
 
 
 if __name__ == "__main__":
-    themes.load_theme(settings.getstring("client", "theme"))
+    themes.load_theme("themes/aai.toml")
     root = HomeScreen()
     root.mainloop()

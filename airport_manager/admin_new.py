@@ -1,11 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+import webbrowser
 
 import pymysql
 from pymysql.err import OperationalError
 
-from fids_common import settings
+from fids_common import settings, login, reportgen
 
 class DataFrame(tk.Frame):
     def __init__(self, parent, con, query=None, *args, **kwargs):
@@ -144,6 +145,9 @@ class HomeScreen(tk.Tk):
         self.__flight_menu.add_command(
             label="Refresh Table", command=self._refresh_table
         )
+        self.__flight_menu.add_command(
+            label="Delay Report", command=self._delayreport
+        )
 
         self.__menu.add_cascade(label="Flight", menu=self.__flight_menu)
 
@@ -153,6 +157,10 @@ class HomeScreen(tk.Tk):
         self.__dframe.grid(row=1, column=0, sticky=tk.N + tk.S + tk.E + tk.W)
 
         tk.Grid.columnconfigure(self, 0, weight=1)
+        
+    def _delayreport(self):
+        reportgen.ReportPDF(self.__con, orientation="landscape").delay_report("report.pdf") 
+        webbrowser.open_new("report.pdf")
 
     def __logout(self):
         self.__con.close()
@@ -461,5 +469,5 @@ class AddFlightWindow(FlightWindow):
 
 """
 if __name__ == "__main__":
-    root = LoginWindow()
+    root = HomeScreen(login.login())
     root.mainloop()
