@@ -24,7 +24,7 @@ class ReportPDF(FPDF):
         # Colors, line width and bold font:
         self.set_fill_color(255, 100, 0)
         self.set_text_color(255)
-        self.set_draw_color(255, 0, 0)
+        self.set_draw_color(255, 0, 0) # border colour
         self.set_line_width(0.3)
         self.set_font(style="B")
         for col_width, heading in zip(col_widths, headings):
