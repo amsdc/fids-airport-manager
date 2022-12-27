@@ -157,6 +157,6 @@ class HomeScreen(tk.Tk):
 
 
 if __name__ == "__main__":
-    themes.load_theme("themes/aai.toml")
+    themes.load_theme(settings.getstring("client", "theme"))
     root = HomeScreen()
     root.mainloop()
