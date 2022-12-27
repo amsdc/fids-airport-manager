@@ -11,7 +11,7 @@ DEFAULT_SETTINGS = {
     },
     "client": {
         "poll_update": 5000,
-        "theme": "default.toml"
+        "theme": "themes/aai.toml"
     },
 }
 
