@@ -34,7 +34,7 @@ class DataFrame(
             cur.execute(
                 "SELECT `sta`, `ifid`,`from`, `belt`, `eta`"
                 "FROM `flight` WHERE "
-                "`eta` BETWEEN NOW() AND NOW() + INTERVAL 1 DAY"
+                "`eta` BETWEEN (NOW() - INTERVAL 1 HOUR) AND (NOW() + INTERVAL 1 DAY)"
                 " ORDER BY `eta` ASC;"
             )
         except OperationalError as e:
