@@ -94,7 +94,7 @@ class ReportPDF(FPDF):
         self.ln(10)
 
         #cursor.execute("SELECT IF(`ifid` IS NULL, LEFT(`ofid`,2), LEFT(`ifid`, 2)), COUNT(*) AS 'noflt', COUNT(TIMESTAMPDIFF(MINUTE, `sta`, `eta`) > 0) AS 'countdelayarr', COUNT(TIMESTAMPDIFF(MINUTE, `sta`, `eta`) < 0) AS 'countearlyarr',  COUNT(TIMESTAMPDIFF(MINUTE, `sta`, `eta`) = 0) AS 'countontimearr', COUNT(TIMESTAMPDIFF(MINUTE, `std`, `etd`) > 0) AS 'countdelaydep', COUNT(TIMESTAMPDIFF(MINUTE, `std`, `etd`) < 0) AS 'countearlydep',  COUNT(TIMESTAMPDIFF(MINUTE, `std`, `etd`) = 0) AS 'countontimedep' FROM `flight` GROUP BY LEFT(`ifid`, 2), IF(`ifid` IS NULL, LEFT(`ofid`, 2), LEFT(`ifid`, 2)) ORDER BY LEFT(`ifid`, 2) ASC;")
-        
+        '''
         cursor.execute("""SELECT
         IF(`ifid` IS NULL, LEFT(`ofid`, 2), LEFT(`ifid`, 2)) as 'iata',
         COUNT(*) AS 'noflt',
@@ -129,7 +129,8 @@ class ReportPDF(FPDF):
                       + (countearlyarr+countearlydep)/noflt)
             
             lst2.append([iata, "{:.0f}".format(noflt), "{:.0f}".format(countdelayarr), "{:.0f}".format(countearlyarr), "{:.0f}".format(countontimearr), "{:.0f}".format(countdelaydep), "{:.0f}".format(countearlydep), "{:.0f}".format(countontimedep), "{:.4f}".format(relfac)])
-
+        '''
+        """
         self.set_font('Arial', 'BU', 25)
         self.cell(0, 20, 'Airline-wise Consolidated Delay Report', align='L')
         self.ln(20)
@@ -140,6 +141,6 @@ class ReportPDF(FPDF):
         self.ln(10)
         self.set_font('Arial', 'I', 12)
         self.multi_cell(0, txt="NOTE: Reliability factor is the expectation of X, where X is a random variable between -1, 0 and 1. -1 deontes delayed flights, 0 on time, 1 early flights.")
-
+        """
         self.output(outfile)
 

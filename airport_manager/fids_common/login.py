@@ -13,7 +13,7 @@ USERSTORE_SERVICE_NAME = "AKNP_FIDS_Prefs"
 
 
 def login(parent=None):
-    if settings.get("auth", "autologin"):
+    if settings.get("auth", "autologin") and keyring.get_password(PWDSTORE_SERVICE_NAME, settings.get("auth", "user")):
         pwd = keyring.get_password(PWDSTORE_SERVICE_NAME, settings.get("auth", "user"))
         con = pymysql.connect(
             host=settings.get("auth", "host"),
